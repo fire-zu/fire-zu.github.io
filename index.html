@@ -4,22 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FIRE族</title>
-    
-    <!-- Favicon for different scenarios -->
-    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="/images/favicon-16x16.png" sizes="16x16" type="image/png">
-    <link rel="icon" href="/images/favicon-32x32.png" sizes="32x32" type="image/png">
-    
-    <!-- Apple Touch Icon (for iOS devices) -->
-    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
-    
-    <!-- Android Chrome Icons -->
-    <link rel="icon" href="/images/android-chrome-192x192.png" sizes="192x192" type="image/png">
-    <link rel="icon" href="/images/android-chrome-512x512.png" sizes="512x512" type="image/png">
-    
-    <!-- Web App Manifest -->
-    <link rel="manifest" href="/site.webmanifest">
-    
+
     <!-- Styles -->
     <style>
         body {
@@ -33,19 +18,15 @@
             height: 100vh;
             background-color: #f4f4f4;
             color: #333;
-            text-align: center; /* 全局文字居中对齐 */
+            text-align: center;
         }
         h1 {
             font-size: 2rem;
-            margin: 0 auto 1rem auto; /* 左右自动居中，上边距为 0，下边距为 1rem */
-            padding: 0 2rem; /* 左右增加 2rem 的内边距 */
-            max-width: 90%; /* 限制最大宽度，避免太宽 */
+            margin-bottom: 1rem;
         }
         p {
             font-size: 1rem;
-            margin: 0 auto 2rem auto; /* 左右自动居中，上边距为 0，下边距为 2rem */
-            padding: 0 2rem; /* 左右增加 2rem 的内边距 */
-            max-width: 90%; /* 限制最大宽度，避免太宽 */
+            margin-bottom: 2rem;
         }
         img {
             width: 200px;
@@ -57,7 +38,44 @@
 </head>
 <body>
     <h1>新躺平主义者的聚集地</h1>
-    <p>扫描下方二维码，前往FIRE族社区，加入我们一起探索FIRE生活吧！</p>
-    <img src="/images/qrcode_for_fire-zu.jpg" alt="FIRE族社区二维码">
+    <p id="description">正在检测设备类型...</p>
+    <img id="qrcode" src="" alt="FIRE族社区二维码" style="display: none;">
+
+    <script>
+        // 微信公众号外链 URL
+        const weChatURL = "https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=gh_dfbdf62fe088";
+
+        // 二维码图片 URL
+        const qrCodeURL = "/images/qrcode_for_fire-zu.jpg";
+
+        // 检测设备类型
+        function detectDeviceType() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+            // 常见移动设备关键字
+            if (/iPhone|Android.*Mobile|Windows Phone/i.test(userAgent)) {
+                return "mobile"; // 手机
+            } else if (/iPad|Android/i.test(userAgent)) {
+                return "tablet"; // 平板
+            } else {
+                return "desktop"; // 桌面设备
+            }
+        }
+
+        // 根据设备类型调整页面内容
+        const deviceType = detectDeviceType();
+        const description = document.getElementById("description");
+        const qrCode = document.getElementById("qrcode");
+
+        if (deviceType === "mobile") {
+            // 手机设备：直接跳转到公众号外链
+            window.location.href = weChatURL;
+        } else {
+            // 非手机设备：展示二维码
+            description.innerText = "扫描下方二维码，前往FIRE族社区，加入我们一起探索FIRE生活吧！";
+            qrCode.src = qrCodeURL;
+            qrCode.style.display = "block";
+        }
+    </script>
 </body>
 </html>
