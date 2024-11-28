@@ -59,20 +59,20 @@
     <script>
         // 微信公众号外链 URL
         const weChatURL = "https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzkwODgzNTk4Ng==";
-
+    
         // 二维码图片 URL
         const qrCodeURL = "/images/qrcode_for_fire-zu.jpg";
-
+    
         // 检测微信浏览器
         function isWeChatBrowser() {
             const ua = navigator.userAgent.toLowerCase();
             return ua.includes("micromessenger");
         }
-
+    
         // 检测设备类型
         function detectDeviceType() {
             const ua = navigator.userAgent.toLowerCase();
-
+    
             // 移动设备关键字
             if (/iPhone|Android.*Mobile|Windows Phone/i.test(ua)) {
                 return "mobile"; // 手机
@@ -82,34 +82,21 @@
                 return "desktop"; // 桌面设备
             }
         }
-
-        // 使用 WeixinJSBridge 跳转
-        function redirectToWeChatURL(url) {
-            if (typeof WeixinJSBridge === "undefined") {
-                // 等待 WeixinJSBridge 加载完成后跳转
-                document.addEventListener("WeixinJSBridgeReady", function () {
-                    WeixinJSBridge.invoke("openUrl", { url: url });
-                }, false);
-            } else {
-                // 直接调用 WeixinJSBridge 跳转
-                WeixinJSBridge.invoke("openUrl", { url: url });
-            }
-        }
-
+    
         // 主逻辑
         const deviceType = detectDeviceType();
         const description = document.getElementById("description");
         const qrCode = document.getElementById("qrcode");
-
+    
         if (isWeChatBrowser() && deviceType === "mobile") {
-            // 微信内浏览器且为手机设备，使用 WeixinJSBridge 跳转
-            redirectToWeChatURL(weChatURL);
+            // 微信内浏览器且为手机设备，直接跳转
+            window.location.href = weChatURL;
         } else {
             // 非微信浏览器或桌面设备，显示二维码
             description.innerText = "扫描下方二维码，前往FIRE族社区，加入我们一起探索FIRE生活吧！";
             qrCode.src = qrCodeURL;
             qrCode.style.display = "block";
         }
-    </script>
+    </script>    
 </body>
 </html>
