@@ -33,16 +33,19 @@
             height: 100vh;
             background-color: #f4f4f4;
             color: #333;
+            text-align: center; /* 全局文字居中对齐 */
         }
         h1 {
             font-size: 2rem;
-            margin: 0 1rem 1rem; /* 上方和左右的间距 */
-            text-align: center;  /* 居中对齐 */
+            margin: 0 auto 1rem auto; /* 左右自动居中，上边距为 0，下边距为 1rem */
+            padding: 0 2rem; /* 左右增加 2rem 的内边距 */
+            max-width: 90%; /* 限制最大宽度，避免太宽 */
         }
         p {
             font-size: 1rem;
-            margin: 0 1rem 2rem; /* 上方和左右的间距 */
-            text-align: center;  /* 居中对齐 */
+            margin: 0 auto 2rem auto; /* 左右自动居中，上边距为 0，下边距为 2rem */
+            padding: 0 2rem; /* 左右增加 2rem 的内边距 */
+            max-width: 90%; /* 限制最大宽度，避免太宽 */
         }
         img {
             width: 200px;
