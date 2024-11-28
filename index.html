@@ -60,14 +60,8 @@
         // 微信公众号外链 URL
         const weChatURL = "https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzkwODgzNTk4Ng==";
 
-        // 使用 WeixinJSBridge 安全跳转
-        function redirectToWeChatURL(url) {
-            if (typeof WeixinJSBridge !== "undefined") {
-                WeixinJSBridge.invoke("openUrl", { url: url });
-            } else {
-                window.location.href = url; // 备用方式
-            }
-        }
+        // 二维码图片 URL
+        const qrCodeURL = "/images/qrcode_for_fire-zu.jpg";
 
         // 检测微信浏览器
         function isWeChatBrowser() {
@@ -75,16 +69,32 @@
             return ua.includes("micromessenger");
         }
 
+        // 检测设备类型
+        function detectDeviceType() {
+            const ua = navigator.userAgent.toLowerCase();
+
+            // 移动设备关键字
+            if (/iPhone|Android.*Mobile|Windows Phone/i.test(ua)) {
+                return "mobile"; // 手机
+            } else if (/iPad|Android/i.test(ua)) {
+                return "tablet"; // 平板
+            } else {
+                return "desktop"; // 桌面设备
+            }
+        }
+
         // 主逻辑
-        if (isWeChatBrowser()) {
-            // 微信浏览器内直接跳转
-            redirectToWeChatURL(weChatURL);
+        const deviceType = detectDeviceType();
+        const description = document.getElementById("description");
+        const qrCode = document.getElementById("qrcode");
+
+        if (isWeChatBrowser() && deviceType === "mobile") {
+            // 微信内浏览器且为手机设备，直接跳转
+            window.location.href = weChatURL;
         } else {
-            // 非微信浏览器提示用户
-            const description = document.getElementById("description");
-            description.innerText = "请使用微信扫描下方二维码打开";
-            const qrCode = document.getElementById("qrcode");
-            qrCode.src = "/images/qrcode_for_fire-zu.jpg";
+            // 非微信浏览器或桌面设备，显示二维码
+            description.innerText = "扫描下方二维码，前往FIRE族社区，加入我们一起探索FIRE生活吧！";
+            qrCode.src = qrCodeURL;
             qrCode.style.display = "block";
         }
     </script>
