@@ -60,35 +60,31 @@
         // 微信公众号外链 URL
         const weChatURL = "https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzkwODgzNTk4Ng==";
 
-        // 二维码图片 URL
-        const qrCodeURL = "/images/qrcode_for_fire-zu.jpg";
-
-        // 检测设备类型
-        function detectDeviceType() {
-            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-
-            // 常见移动设备关键字
-            if (/iPhone|Android.*Mobile|Windows Phone/i.test(userAgent)) {
-                return "mobile"; // 手机
-            } else if (/iPad|Android/i.test(userAgent)) {
-                return "tablet"; // 平板
+        // 使用 WeixinJSBridge 安全跳转
+        function redirectToWeChatURL(url) {
+            if (typeof WeixinJSBridge !== "undefined") {
+                WeixinJSBridge.invoke("openUrl", { url: url });
             } else {
-                return "desktop"; // 桌面设备
+                window.location.href = url; // 备用方式
             }
         }
 
-        // 根据设备类型调整页面内容
-        const deviceType = detectDeviceType();
-        const description = document.getElementById("description");
-        const qrCode = document.getElementById("qrcode");
+        // 检测微信浏览器
+        function isWeChatBrowser() {
+            const ua = navigator.userAgent.toLowerCase();
+            return ua.includes("micromessenger");
+        }
 
-        if (deviceType === "mobile") {
-            // 手机设备：直接跳转到公众号外链
-            window.location.href = weChatURL;
+        // 主逻辑
+        if (isWeChatBrowser()) {
+            // 微信浏览器内直接跳转
+            redirectToWeChatURL(weChatURL);
         } else {
-            // 非手机设备：展示二维码
-            description.innerText = "扫描下方二维码，前往FIRE族社区，加入我们一起探索FIRE生活吧！";
-            qrCode.src = qrCodeURL;
+            // 非微信浏览器提示用户
+            const description = document.getElementById("description");
+            description.innerText = "请使用微信扫描下方二维码打开";
+            const qrCode = document.getElementById("qrcode");
+            qrCode.src = "/images/qrcode_for_fire-zu.jpg";
             qrCode.style.display = "block";
         }
     </script>
