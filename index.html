@@ -60,22 +60,6 @@
 <body>
     <h1>新躺平主义者的聚集地</h1>
     <p>扫描下方二维码，前往FIRE族社区，加入我们一起探索FIRE生活吧~</p>
-    <img id="qrcode" src="" alt="FIRE族社区二维码">
-    
-    <script>
-        // 获取当前路径
-        const path = window.location.pathname;
-        const imgElement = document.getElementById('qrcode');
-
-        // 根据路径设置图片路径
-        let imgSrc = '/images/qrcode_for_fire-zu.jpg'; // 默认图片
-        if (path !== '/' && path.length > 1) {
-            const page = path.slice(1); // 去掉前面的斜杠
-            imgSrc = `/images/qrcode_for_fire-zu/${page}.jpg`;
-        }
-
-        // 更新图片的 src 属性
-        imgElement.src = imgSrc;
-    </script>
+    <img src="/images/qrcode_for_fire-zu.jpg" alt="FIRE族社区二维码">
 </body>
 </html>
