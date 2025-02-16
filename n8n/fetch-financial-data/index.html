@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>获取财务数据</title>
     <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/custom-styles.css">
 </head>
 <body>
     <!-- 密码保护 -->
@@ -59,11 +60,23 @@
                              + "&symbol=" + encodeURIComponent(symbol)
                              + "&xq_a_token=" + encodeURIComponent(xq_a_token);
                 
-                // 发送 GET 请求，并显示返回的 JSON 数据
-                fetch(apiUrl)
-                  .then(function(response){ return response.json(); })
-                  .then(function(data){
-                      document.getElementById("result").innerHTML = "<pre>" + JSON.stringify(data, null, 2) + "</pre>";
+                // 发送 GET 请求，并下载返回的文件
+                fetch(apiUrl, {
+                    headers: {
+                        'Accept': 'application/octet-stream'
+                    }
+                })
+                  .then(function(response){ return response.blob(); })
+                  .then(function(blob){
+                      // 创建临时链接用于下载返回的文件
+                      var downloadUrl = window.URL.createObjectURL(blob);
+                      var a = document.createElement("a");
+                      a.href = downloadUrl;
+                      a.download = "stock_data.json";   // 设置下载文件名称
+                      document.body.appendChild(a);
+                      a.click();
+                      a.remove();
+                      window.URL.revokeObjectURL(downloadUrl);
                   })
                   .catch(function(err){
                       document.getElementById("result").textContent = "请求失败: " + err;
