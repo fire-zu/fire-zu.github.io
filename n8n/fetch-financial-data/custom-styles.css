@@ -1,3 +1,28 @@
+/* 页面主要内容：居中并限制宽度为手机宽度 */
+main {
+  width: 100%;
+  max-width: 420px; /* 根据需要调整最大宽度 */
+  margin: 0 auto;
+  padding: 1em;
+}
+
+/* GET按钮样式 */
+button#btnGet {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: var(--color-primary, #007BFF);
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button#btnGet:hover {
+  background-color: var(--color-primary-hover, #0056b3);
+}
+
 /* 自定义输入框等控件样式，参考上面的代码风格 */
 
 input[type="text"],
