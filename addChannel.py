@@ -15,9 +15,9 @@ html_template = """<!DOCTYPE html>
     <link rel="icon" href="/images/favicon-16x16.png" sizes="16x16" type="image/png">
     <link rel="icon" href="/images/favicon-32x32.png" sizes="32x32" type="image/png">
     <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="icon" href="/images/android-chrome-192x192.png" sizes="192x192" type="image/png">
+    <link rel="icon" href="/images/android-chrome-512x512.png" sizes="512x512" type="image/png">
     <link rel="manifest" href="/site.webmanifest">
-
-    <!-- 公共样式文件 -->
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>

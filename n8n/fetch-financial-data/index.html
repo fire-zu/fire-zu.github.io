@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>获取财务数据</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <!-- 密码保护 -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function(){
+          // 弹出对话框要求输入密码，示例密码为"admin"，请根据需要修改
+          var pass = prompt("请输入密码", "");
+          if(pass !== "admin"){
+             document.body.innerHTML = "<h2>密码错误！</h2>";
+          }
+      });
+    </script>
+
+    <header>
+        <h1>获取财务数据</h1>
+    </header>
+    <main>
+        <!-- 表单区域 -->
+        <form id="stockForm">
+            <fieldset>
+                <legend>选择国家</legend>
+                <label><input type="radio" name="country" value="hk" checked> HK</label>
+                <label><input type="radio" name="country" value="us"> US</label>
+                <label><input type="radio" name="country" value="cn"> CN</label>
+            </fieldset>
+            <p>
+                <label>Symbol：<input type="text" name="symbol" placeholder="例如：00241"></label>
+            </p>
+            <p>
+                <label>xq_a_token：<input type="text" name="xq_a_token" placeholder="请输入xq_a_token"></label>
+            </p>
+            <p>
+                <button type="button" id="btnGet">GET</button>
+            </p>
+        </form>
+        <!-- 显示结果 -->
+        <div id="result"></div>
+        <script>
+            document.getElementById("btnGet").addEventListener("click", function(){
+                var country = document.querySelector('input[name="country"]:checked').value;
+                var symbol = document.querySelector('input[name="symbol"]').value;
+                var xq_a_token = document.querySelector('input[name="xq_a_token"]').value;
+                
+                if(!symbol || !xq_a_token) {
+                    alert("请填写Symbol和xq_a_token");
+                    return;
+                }
+                
+                // 构造 API URL
+                var apiUrl = "http://141.147.166.133:5678/webhook/stock-check?country=" 
+                             + encodeURIComponent(country)
+                             + "&symbol=" + encodeURIComponent(symbol)
+                             + "&xq_a_token=" + encodeURIComponent(xq_a_token);
+                
+                // 发送 GET 请求，并显示返回的 JSON 数据
+                fetch(apiUrl)
+                  .then(function(response){ return response.json(); })
+                  .then(function(data){
+                      document.getElementById("result").innerHTML = "<pre>" + JSON.stringify(data, null, 2) + "</pre>";
+                  })
+                  .catch(function(err){
+                      document.getElementById("result").textContent = "请求失败: " + err;
+                  });
+            });
+        </script>
+    </main>
+    <footer>
+        <p>&copy; 2023 Fire-ZU</p>
+    </footer>
+</body>
+</html> 
