@@ -12,7 +12,7 @@
       document.addEventListener("DOMContentLoaded", function(){
           // 弹出对话框要求输入密码，示例密码为"admin"，请根据需要修改
           var pass = prompt("请输入密码", "");
-          if(pass !== "admin"){
+          if(pass !== "n8n-admin"){
              document.body.innerHTML = "<h2>密码错误！</h2>";
           }
       });
@@ -54,7 +54,7 @@
                 }
                 
                 // 构造 API URL
-                var apiUrl = "http://141.147.166.133:5678/webhook/stock-check?country=" 
+                var apiUrl = "https://141.147.166.133:5678/webhook/stock-check?country=" 
                              + encodeURIComponent(country)
                              + "&symbol=" + encodeURIComponent(symbol)
                              + "&xq_a_token=" + encodeURIComponent(xq_a_token);
