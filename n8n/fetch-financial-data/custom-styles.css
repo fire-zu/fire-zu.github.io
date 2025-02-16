@@ -45,4 +45,9 @@ select:focus,
 textarea:focus {
   outline: none;
   border-color: var(--color-primary, #007BFF);
+}
+
+/* 居中标题和表单 */
+header, form#stockForm {
+  text-align: center;
 } 
