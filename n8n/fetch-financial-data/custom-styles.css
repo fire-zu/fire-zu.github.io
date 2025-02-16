@@ -8,7 +8,8 @@ main {
 
 /* GET按钮样式 */
 button#btnGet {
-  display: inline-block;
+  display: block; /* 改为块级元素 */
+  margin: 0 auto; /* 居中按钮 */
   padding: 10px 20px;
   background-color: var(--color-primary, #007BFF);
   border: none;
