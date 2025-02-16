@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>获取财务数据</title>
-    <link rel="stylesheet" href="/styles.css">
-    <link rel="stylesheet" href="/custom-styles.css">
+    <title>n8n - 获取财务数据</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon-n8n.ico">
+    <link rel="stylesheet" href="custom-styles.css">
 </head>
 <body>
     <!-- 密码保护 -->
@@ -82,6 +82,28 @@
                       document.getElementById("result").textContent = "请求失败: " + err;
                   });
             });
+        </script>
+        <script>
+            // 持久化输入框内容，使用 localStorage
+            (function(){
+                var symbolInput = document.querySelector('input[name="symbol"]');
+                var tokenInput = document.querySelector('input[name="xq_a_token"]');
+                // 如果 localStorage 中有保存的上次输入，则恢复到对应控件
+                if(localStorage.getItem("symbol")){
+                    symbolInput.value = localStorage.getItem("symbol");
+                }
+                if(localStorage.getItem("xq_a_token")){
+                    tokenInput.value = localStorage.getItem("xq_a_token");
+                }
+
+                // 监听输入事件，动态保存到 localStorage 中
+                symbolInput.addEventListener("input", function(){
+                    localStorage.setItem("symbol", symbolInput.value);
+                });
+                tokenInput.addEventListener("input", function(){
+                    localStorage.setItem("xq_a_token", tokenInput.value);
+                });
+            })();
         </script>
     </main>
     <footer>
